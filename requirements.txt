@@ -1,0 +1,15 @@
+# Core libraries
+opencv-python==4.9.0.80
+numpy==1.26.4
+
+# Hailo SDK bindings (Python-native bindings assumed once installed)
+# You must install from source or .run SDK manually
+# Placeholder for awareness:
+hailort==4.20.0
+
+# Optional: argument parsing, CLI tools
+argcomplete==3.6.2
+contextlib2==21.6.0
+future==1.0.0
+netaddr==1.3.0
+netifaces==0.11.0
