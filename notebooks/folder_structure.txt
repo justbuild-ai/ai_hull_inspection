@@ -1,0 +1,22 @@
+ai_hull_inspection/
+├── data/
+│   ├── test_images/         # Input images for testing
+│   ├── outputs/             # Annotated or inferred results
+│   └── stitched/            # Optional: stitched or composite outputs
+
+├── hull_inspection_ai/      # Main Python package
+│   ├── camera/              # Image capture modules (e.g. capture.py)
+│   ├── cli.py               # Command-line interface (optional entry point)
+│   ├── config.py            # Configuration file for paths, params, etc.
+│   ├── domains/             # Placeholder for domain-specific logic (lv, pl, sv)
+│   ├── models/              # Model loading logic (.hef files, configs)
+│   ├── postprocess/         # Bounding box parsing/filtering logic
+│   ├── stitching/           # Image stitching logic
+│   ├── utils/               # Logging, utility helpers
+│   └── visual/              # Inference logic (e.g. inference_engine.py)
+
+├── devlog.md                # Developer progress log
+├── hailort.log              # Hailo SDK logs (optional)
+├── notebooks/               # Analysis, markdown notes, or Jupyter notebooks
+├── README.md
+└── requirements.txt

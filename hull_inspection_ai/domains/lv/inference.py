@@ -1,8 +1,19 @@
-from hull_inspection_ai.visual.inference_engine import run_inference
+def main():
+    parser = argparse.ArgumentParser(description="AI Hull Inspection CLI")
+    parser.add_argument(
+        "--domain",
+        required=True,
+        choices=DOMAIN_HANDLERS.keys(),
+        help="Target system: lv, sv, or pl",
+    )
+    parser.add_argument("--image", help="Path to input image")
+    parser.add_argument("--model", default=MODEL_PATH, help="Path to .hef model")
+    parser.add_argument("--live", action="store_true", help="Capture image from camera")
 
-def run(image_path, model_path):
-    print("[LV] Running Hailo inference pipeline...")
-    results = run_inference(image_path, model_path)
+    args = parser.parse_args()
 
-    for det in results:
-        print(f"[LV] Detection: {det}")
+    handler = DOMAIN_HANDLERS.get(args.domain)
+    if handler:
+        handler(image_path=args.image, model_path=args.model, live=args.live)
+    else:
+        print(f"Unknown domain: {args.domain}")
