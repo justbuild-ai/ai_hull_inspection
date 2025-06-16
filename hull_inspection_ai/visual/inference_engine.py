@@ -5,7 +5,7 @@ import os
 from hull_inspection_ai.postprocess.bin_decoder import decode_yolo_bin
 
 
-def run_inference(image_path, model_path):
+def run_inference(image_path, model_path, domain="demo", timestamp=""):
     print(f"🔍 Loading image: {image_path}")
     image = cv2.imread(image_path)
     if image is None:
@@ -43,7 +43,8 @@ def run_inference(image_path, model_path):
     detections = decode_yolo_bin(output_bin, image.shape)
 
     # Draw and return all detections
-    output_path = "data/outputs/annotated_sample1.jpg"
+    filename = f"{domain}_annotated_{timestamp}.jpg" if timestamp else "annotated_sample1.jpg"
+    output_path = os.path.join("data/outputs", filename)
     annotated = image.copy()
 
     for det in detections:

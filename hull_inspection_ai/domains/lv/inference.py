@@ -1,19 +1,25 @@
-def main():
-    parser = argparse.ArgumentParser(description="AI Hull Inspection CLI")
-    parser.add_argument(
-        "--domain",
-        required=True,
-        choices=DOMAIN_HANDLERS.keys(),
-        help="Target system: lv, sv, or pl",
+from hull_inspection_ai.visual.inference_engine import run_inference
+from hull_inspection_ai.camera.capture import capture_image
+from datetime import datetime
+
+
+def run(image_path, model_path, live=False):
+    domain_name = "LV"  # change to SV or PL as appropriate
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    print(f"[{domain_name}] Starting inference at {timestamp}...")
+
+    if live:
+        print("📸 Capturing image from camera...")
+        image_path = capture_image(
+            output_path=f"data/test_images/{domain_name}_{timestamp}.jpg"
+        )
+
+    print(f"[{domain_name}] Using model: {model_path}")
+    print(f"[{domain_name}] Input image: {image_path}")
+
+    detections = run_inference(
+        image_path, model_path, domain=domain_name, timestamp=timestamp
     )
-    parser.add_argument("--image", help="Path to input image")
-    parser.add_argument("--model", default=MODEL_PATH, help="Path to .hef model")
-    parser.add_argument("--live", action="store_true", help="Capture image from camera")
 
-    args = parser.parse_args()
-
-    handler = DOMAIN_HANDLERS.get(args.domain)
-    if handler:
-        handler(image_path=args.image, model_path=args.model, live=args.live)
-    else:
-        print(f"Unknown domain: {args.domain}")
+    print(f"[{domain_name}] Detections: {detections}")

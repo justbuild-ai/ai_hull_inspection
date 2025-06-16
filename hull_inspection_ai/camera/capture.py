@@ -1,3 +1,5 @@
+import site
+site.addsitedir("/usr/lib/python3/dist-packages")
 import cv2
 import os
 from datetime import datetime
